@@ -1,0 +1,21 @@
+name: Deploy to Harvester
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.HCV_KUBECONFIG }}" > $HOME/.kube/config
+
+      - name: Deploy to Harvester cluster
+        run: |
+          kubectl get nodes
