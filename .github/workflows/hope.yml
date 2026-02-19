@@ -14,7 +14,7 @@ jobs:
       - name: Set up Kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.HCV_KUBECONFIG }}" > $HOME/.kube/config
+          echo "${{ secrets.HCV_KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
       - name: Deploy to Harvester cluster
         run: |
